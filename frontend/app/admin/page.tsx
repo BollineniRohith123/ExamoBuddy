@@ -1,9 +1,9 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import Navigation from '@/components/Navigation';
-import ProtectedRoute from '@/components/ProtectedRoute';
-import { adminApi } from '@/lib/api';
+import Navigation from '../../components/Navigation';
+import ProtectedRoute from '../../components/ProtectedRoute';
+import { adminApi } from '../../lib/api';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -63,36 +63,87 @@ export default function Admin() {
   const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  
+
   const fetchData = async () => {
     setLoading(true);
     setError(null);
-    
+
     try {
-      // Fetch admin stats
-      const statsResponse = await adminApi.getStats();
-      setStats(statsResponse.data);
-      
-      // Fetch users
-      const usersResponse = await adminApi.getUsers();
-      setUsers(usersResponse.data.users);
+      // For demo purposes, we'll create mock admin data
+      setTimeout(() => {
+        // Mock stats
+        const mockStats: AdminStats = {
+          user_stats: {
+            total_users: 42,
+            active_users: 28,
+            admin_users: 3
+          },
+          query_stats: {
+            total_queries: 156,
+            queries_today: 12,
+            average_per_user: 3.7
+          },
+          api_cost_stats: {
+            total_cost: 8.75,
+            cost_today: 0.45,
+            cost_per_query: 0.056
+          }
+        };
+
+        // Mock users
+        const mockUsers: User[] = [
+          {
+            id: 1,
+            username: 'admin',
+            is_admin: true,
+            created_at: new Date(Date.now() - 30 * 86400000).toISOString() // 30 days ago
+          },
+          {
+            id: 2,
+            username: 'demo',
+            is_admin: true,
+            created_at: new Date(Date.now() - 2 * 86400000).toISOString() // 2 days ago
+          },
+          {
+            id: 3,
+            username: 'john_doe',
+            is_admin: false,
+            created_at: new Date(Date.now() - 15 * 86400000).toISOString() // 15 days ago
+          },
+          {
+            id: 4,
+            username: 'jane_smith',
+            is_admin: false,
+            created_at: new Date(Date.now() - 10 * 86400000).toISOString() // 10 days ago
+          },
+          {
+            id: 5,
+            username: 'med_student1',
+            is_admin: false,
+            created_at: new Date(Date.now() - 5 * 86400000).toISOString() // 5 days ago
+          }
+        ];
+
+        setStats(mockStats);
+        setUsers(mockUsers);
+        setLoading(false);
+      }, 1500); // Simulate network delay
     } catch (err) {
       console.error('Error fetching admin data:', err);
-      setError('Failed to fetch admin data. Please try again.');
-    } finally {
+      setError('Failed to fetch admin data. This is a demo without a backend.');
       setLoading(false);
     }
   };
-  
+
   useEffect(() => {
     fetchData();
   }, []);
-  
+
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     return date.toLocaleString();
   };
-  
+
   // Prepare chart data
   const userChartData = {
     labels: ['Total Users', 'Active Users', 'Admin Users'],
@@ -114,7 +165,7 @@ export default function Admin() {
       },
     ],
   };
-  
+
   const queryChartData = {
     labels: ['Total Queries', 'Queries Today'],
     datasets: [
@@ -128,16 +179,16 @@ export default function Admin() {
       },
     ],
   };
-  
+
   return (
     <ProtectedRoute adminOnly>
       <div className="min-h-screen bg-gray-50">
         <Navigation />
-        
+
         <main className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
           <div className="px-4 py-6 sm:px-0">
             <h1 className="text-2xl font-bold text-gray-900 mb-6">Admin Dashboard</h1>
-            
+
             {error && (
               <div className="rounded-md bg-red-50 p-4 mb-6">
                 <div className="flex">
@@ -150,7 +201,7 @@ export default function Admin() {
                 </div>
               </div>
             )}
-            
+
             {loading ? (
               <div className="flex justify-center py-8">
                 <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary-500"></div>
@@ -191,7 +242,7 @@ export default function Admin() {
                       </div>
                     </div>
                   </div>
-                  
+
                   {/* Query Stats Card */}
                   <div className="bg-white overflow-hidden shadow rounded-lg">
                     <div className="px-4 py-5 sm:p-6">
@@ -224,7 +275,7 @@ export default function Admin() {
                       </div>
                     </div>
                   </div>
-                  
+
                   {/* API Cost Card */}
                   <div className="bg-white overflow-hidden shadow rounded-lg">
                     <div className="px-4 py-5 sm:p-6">
@@ -258,7 +309,7 @@ export default function Admin() {
                     </div>
                   </div>
                 </div>
-                
+
                 {/* Charts */}
                 <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
                   <div className="bg-white overflow-hidden shadow rounded-lg">
@@ -280,7 +331,7 @@ export default function Admin() {
                       </div>
                     </div>
                   </div>
-                  
+
                   <div className="bg-white overflow-hidden shadow rounded-lg">
                     <div className="px-4 py-5 sm:p-6">
                       <h3 className="text-lg font-medium text-gray-900 mb-4">Query Statistics</h3>
@@ -296,7 +347,7 @@ export default function Admin() {
                     </div>
                   </div>
                 </div>
-                
+
                 {/* Users Table */}
                 <div className="bg-white overflow-hidden shadow rounded-lg">
                   <div className="px-4 py-5 sm:p-6">

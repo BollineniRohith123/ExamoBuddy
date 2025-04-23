@@ -18,7 +18,7 @@ This roadmap outlines the intensive 24-hour development plan for creating the Ex
 - [x] Prepare development tools and resources
 
 ### Hour 1-3: Database and Backend Foundation (2 hours)
-- [x] Connect to PostgreSQL at pgadmin.alviongs.com
+- [x] Connect to PostgreSQL at server.alviongs.com via aaPanel
 - [x] Create essential database tables (users, history, vectors)
 - [x] Enable pgvector extension
 - [x] Set up FastAPI project structure
@@ -90,7 +90,7 @@ This roadmap outlines the intensive 24-hour development plan for creating the Ex
 - [ ] Deploy backend to a simple production server
 - [ ] Deploy frontend to Vercel
 - [ ] Configure environment variables
-- [ ] Create basic documentation
+- [x] Create basic documentation
 - [ ] Prepare demo for stakeholders
 
 ## Technical Stack for Rapid Development
@@ -99,7 +99,7 @@ This roadmap outlines the intensive 24-hour development plan for creating the Ex
 - **Language**: Python 3.8+
 - **Framework**: FastAPI (for quick API development)
 - **RAG Framework**: Haystack (latest version with agentic capabilities)
-- **Database**: PostgreSQL with pgvector at pgadmin.alviongs.com
+- **Database**: PostgreSQL with pgvector at server.alviongs.com via aaPanel
 - **Authentication**: Simple JWT-based auth (minimal implementation)
 - **APIs**: Perplexity for deep research, OpenRouter for cost-effective LLM access
 - **PDF Generation**: Simple pdfkit implementation
@@ -113,7 +113,7 @@ This roadmap outlines the intensive 24-hour development plan for creating the Ex
 - **Deployment**: Vercel (for instant deployment)
 
 ### Infrastructure
-- **Database**: Existing PostgreSQL at pgadmin.alviongs.com
+- **Database**: Existing PostgreSQL at server.alviongs.com via aaPanel
 - **Backend Hosting**: Railway.app or Render.com (for quick deployment)
 - **Frontend Hosting**: Vercel (zero-config deployment)
 
@@ -168,7 +168,7 @@ After the 24-hour development sprint, these areas will need further refinement:
 ### Database Schema (Quick Implementation)
 
 ```sql
--- Run this on pgadmin.alviongs.com to set up the database
+-- Run this on server.alviongs.com to set up the database
 CREATE EXTENSION IF NOT EXISTS pgvector;
 
 CREATE TABLE users (

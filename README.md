@@ -28,7 +28,7 @@ Before you begin, ensure you have the following installed:
 - Python 3.8 or higher
 - Node.js 18 or higher
 - npm or yarn
-- PostgreSQL with pgvector extension
+- PostgreSQL with pgvector extension (hosted on aaPanel)
 - wkhtmltopdf (for PDF generation)
 
 ## Installation and Setup
@@ -55,7 +55,7 @@ Create a `.env` file in the `backend` directory with the following content:
 
 ```
 # Database configuration
-DB_HOST=pgadmin.alviongs.com
+DB_HOST=server.alviongs.com
 DB_PORT=5432
 DB_NAME=examobuddy
 DB_USER=your_db_username
@@ -79,10 +79,12 @@ Replace the placeholder values with your actual credentials.
 
 #### Set Up the Database
 
-Connect to your PostgreSQL database and run the SQL script in `backend/setup_db.sql`:
+Follow the detailed instructions in [PostgreSQL aaPanel Setup Guide](docs/postgresql-aapanel-setup.md) to set up PostgreSQL on aaPanel.
+
+Once your database is set up, run the SQL script in `backend/setup_db.sql`:
 
 ```bash
-psql -h pgadmin.alviongs.com -U your_db_username -d examobuddy -f setup_db.sql
+psql -h server.alviongs.com -U your_db_username -d examobuddy -f setup_db.sql
 ```
 
 #### Run the Backend Server
@@ -140,7 +142,7 @@ from haystack.nodes import EmbeddingRetriever
 
 # Connect to the document store
 document_store = PgvectorDocumentStore(
-    connection_string="postgresql://your_db_username:your_db_password@pgadmin.alviongs.com:5432/examobuddy",
+    connection_string="postgresql://your_db_username:your_db_password@server.alviongs.com:5432/examobuddy",
     embedding_dimension=1536,
     recreate_table=False
 )

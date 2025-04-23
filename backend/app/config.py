@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # Database configuration
-DB_HOST = os.getenv("DB_HOST", "pgadmin.alviongs.com")
+DB_HOST = os.getenv("DB_HOST", "server.alviongs.com")
 DB_PORT = os.getenv("DB_PORT", "5432")
 DB_NAME = os.getenv("DB_NAME", "examobuddy")
 DB_USER = os.getenv("DB_USER", "postgres")

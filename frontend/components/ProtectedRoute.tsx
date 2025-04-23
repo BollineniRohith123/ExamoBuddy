@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { isAuthenticated, isAdmin } from '@/lib/auth';
+import { isAuthenticated, isAdmin } from '../lib/auth';
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
@@ -12,27 +12,27 @@ interface ProtectedRouteProps {
 export default function ProtectedRoute({ children, adminOnly = false }: ProtectedRouteProps) {
   const router = useRouter();
   const [loading, setLoading] = useState(true);
-  
+
   useEffect(() => {
     // Check if the user is authenticated
     const authenticated = isAuthenticated();
-    
+
     if (!authenticated) {
       // Redirect to login if not authenticated
       router.push('/login');
       return;
     }
-    
+
     // Check if the route requires admin privileges
     if (adminOnly && !isAdmin()) {
       // Redirect to home if not an admin
       router.push('/');
       return;
     }
-    
+
     setLoading(false);
   }, [router, adminOnly]);
-  
+
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
@@ -40,6 +40,6 @@ export default function ProtectedRoute({ children, adminOnly = false }: Protecte
       </div>
     );
   }
-  
+
   return <>{children}</>;
 }

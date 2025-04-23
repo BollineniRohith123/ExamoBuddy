@@ -5,7 +5,7 @@ import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { isAuthenticated, isAdmin, clearAuth } from '@/lib/auth';
+import { isAuthenticated, isAdmin, clearAuth } from '../lib/auth';
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ');
@@ -15,23 +15,23 @@ export default function Navigation() {
   const pathname = usePathname();
   const [authenticated, setAuthenticated] = useState(false);
   const [admin, setAdmin] = useState(false);
-  
+
   useEffect(() => {
     setAuthenticated(isAuthenticated());
     setAdmin(isAdmin());
   }, [pathname]);
-  
+
   const handleLogout = () => {
     clearAuth();
     window.location.href = '/login';
   };
-  
+
   const navigation = [
     { name: 'Home', href: '/', current: pathname === '/' },
     { name: 'History', href: '/history', current: pathname === '/history' },
     ...(admin ? [{ name: 'Admin', href: '/admin', current: pathname === '/admin' }] : []),
   ];
-  
+
   return (
     <Disclosure as="nav" className="bg-primary-600">
       {({ open }) => (

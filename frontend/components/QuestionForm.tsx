@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { qaApi } from '@/lib/api';
+import { qaApi } from '../lib/api';
 import ReactMarkdown from 'react-markdown';
 
 interface FormData {
@@ -15,56 +15,64 @@ export default function QuestionForm() {
   const [answer, setAnswer] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [currentQuestion, setCurrentQuestion] = useState<string | null>(null);
-  
+
   const onSubmit = async (data: FormData) => {
     setLoading(true);
     setError(null);
-    
+
     try {
-      const response = await qaApi.askQuestion(data.question);
-      setAnswer(response.data.answer);
-      setCurrentQuestion(data.question);
-      reset();
+      // For demo purposes, we'll create a mock answer
+      setTimeout(() => {
+        const mockAnswers: Record<string, string> = {
+          'What is hypertension?': 'Hypertension, or high blood pressure, is a condition where the force of blood against the artery walls is consistently too high. It is often called the "silent killer" because it typically has no symptoms but can lead to serious health problems like heart disease, stroke, and kidney damage. Blood pressure is measured in millimeters of mercury (mmHg) and recorded as two numbers: systolic pressure (when the heart beats) over diastolic pressure (when the heart rests). A normal blood pressure reading is less than 120/80 mmHg. Hypertension is generally defined as blood pressure higher than 130/80 mmHg.',
+          'What are the symptoms of diabetes?': 'The symptoms of diabetes can vary depending on how elevated your blood sugar is. Some people, especially those with prediabetes or type 2 diabetes, may not experience symptoms initially. Common symptoms of diabetes include:\n\n- Increased thirst\n- Frequent urination\n- Extreme hunger\n- Unexplained weight loss\n- Presence of ketones in the urine (ketones are a byproduct of the breakdown of muscle and fat that happens when there\'s not enough available insulin)\n- Fatigue\n- Irritability\n- Blurred vision\n- Slow-healing sores\n- Frequent infections, such as gums or skin infections and vaginal infections\n\nType 1 diabetes can develop quickly and symptoms are often severe, while type 2 diabetes tends to develop more gradually, and symptoms can be mild or absent.',
+          'How does the heart work?': 'The heart is a muscular organ about the size of a fist, located just behind and slightly left of the breastbone. It works as a pump that beats 100,000 times per day, pushing about 2,000 gallons of blood through the body.\n\nThe heart has four chambers:\n1. **Right Atrium**: Receives oxygen-poor blood from the body\n2. **Right Ventricle**: Pumps this blood to the lungs where it picks up oxygen\n3. **Left Atrium**: Receives oxygen-rich blood from the lungs\n4. **Left Ventricle**: Pumps this blood to the rest of the body\n\nThe heart\'s pumping action is regulated by electrical impulses that originate in the sinoatrial (SA) node, often called the heart\'s natural pacemaker. These electrical signals cause the heart muscles to contract in a coordinated manner, creating the heartbeat.\n\nOne-way valves between the chambers ensure that blood flows in the correct direction. The heart is enclosed in a protective sac called the pericardium and has its own blood supply through the coronary arteries.',
+        };
+
+        // Check if we have a predefined answer for this question
+        let answer = mockAnswers[data.question];
+
+        // If not, provide a generic response
+        if (!answer) {
+          answer = `Thank you for your question about "${data.question}". This is a demo version without a backend connection. In a fully functional version, this would provide a detailed medical answer using Haystack's agentic RAG and Perplexity API.\n\nPlease try one of these sample questions:\n- What is hypertension?\n- What are the symptoms of diabetes?\n- How does the heart work?`;
+        }
+
+        setAnswer(answer);
+        setCurrentQuestion(data.question);
+        reset();
+        setLoading(false);
+      }, 2000); // Simulate network delay
     } catch (err) {
       console.error('Error asking question:', err);
-      setError('Failed to get an answer. Please try again.');
-    } finally {
+      setError('Failed to get an answer. This is a demo without a backend.');
       setLoading(false);
     }
   };
-  
+
   const handleDownloadPdf = async () => {
     if (!answer) return;
-    
+
     try {
-      const response = await qaApi.generatePdf(answer, currentQuestion || undefined);
-      
-      // Create a blob from the PDF data
-      const blob = new Blob([response.data], { type: 'application/pdf' });
-      
-      // Create a URL for the blob
-      const url = window.URL.createObjectURL(blob);
-      
-      // Create a link element
-      const link = document.createElement('a');
-      link.href = url;
-      link.download = 'examobuddy_answer.pdf';
-      
-      // Append the link to the body
-      document.body.appendChild(link);
-      
-      // Click the link to trigger the download
-      link.click();
-      
-      // Clean up
-      document.body.removeChild(link);
-      window.URL.revokeObjectURL(url);
+      // For demo purposes, we'll create a mock PDF download
+      setError('PDF download is not available in the demo version without a backend.');
+
+      // In a real implementation, this would call the backend API to generate a PDF
+      // const response = await qaApi.generatePdf(answer, currentQuestion || undefined);
+      // const blob = new Blob([response.data], { type: 'application/pdf' });
+      // const url = window.URL.createObjectURL(blob);
+      // const link = document.createElement('a');
+      // link.href = url;
+      // link.download = 'examobuddy_answer.pdf';
+      // document.body.appendChild(link);
+      // link.click();
+      // document.body.removeChild(link);
+      // window.URL.revokeObjectURL(url);
     } catch (err) {
       console.error('Error generating PDF:', err);
-      setError('Failed to generate PDF. Please try again.');
+      setError('Failed to generate PDF. This is a demo without a backend.');
     }
   };
-  
+
   return (
     <div className="space-y-6">
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
@@ -87,7 +95,7 @@ export default function QuestionForm() {
             )}
           </div>
         </div>
-        
+
         <div>
           <button
             type="submit"
@@ -108,7 +116,7 @@ export default function QuestionForm() {
           </button>
         </div>
       </form>
-      
+
       {error && (
         <div className="rounded-md bg-red-50 p-4">
           <div className="flex">
@@ -121,7 +129,7 @@ export default function QuestionForm() {
           </div>
         </div>
       )}
-      
+
       {answer && (
         <div className="bg-white border border-gray-200 rounded-lg shadow-sm p-6">
           {currentQuestion && (
@@ -130,14 +138,14 @@ export default function QuestionForm() {
               <p className="mt-1 text-gray-600">{currentQuestion}</p>
             </div>
           )}
-          
+
           <div>
             <h3 className="text-lg font-medium text-gray-900">Answer:</h3>
             <div className="mt-2 prose max-w-none">
               <ReactMarkdown>{answer}</ReactMarkdown>
             </div>
           </div>
-          
+
           <div className="mt-6 flex justify-end">
             <button
               type="button"

@@ -14,10 +14,15 @@ interface User {
 
 // Check if the token is valid (not expired)
 export const isTokenValid = (token: string): boolean => {
+  // For demo purposes, always return true for our mock token
+  if (token.includes('mock-token')) {
+    return true;
+  }
+
   try {
     const decoded = jwtDecode<DecodedToken>(token);
     const currentTime = Date.now() / 1000;
-    
+
     return decoded.exp > currentTime;
   } catch (error) {
     return false;
@@ -29,13 +34,13 @@ export const getCurrentUser = (): User | null => {
   if (typeof window === 'undefined') {
     return null;
   }
-  
+
   const token = localStorage.getItem('token');
-  
+
   if (!token || !isTokenValid(token)) {
     return null;
   }
-  
+
   try {
     // In a real app, we would decode the token and get the user info
     // For now, we'll just return a placeholder user
@@ -51,16 +56,16 @@ export const isAuthenticated = (): boolean => {
   if (typeof window === 'undefined') {
     return false;
   }
-  
+
   const token = localStorage.getItem('token');
-  
+
   return !!token && isTokenValid(token);
 };
 
 // Check if the user is an admin
 export const isAdmin = (): boolean => {
   const user = getCurrentUser();
-  
+
   return !!user && user.is_admin;
 };
 

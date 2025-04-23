@@ -38,7 +38,7 @@ This plan covers frontend, backend, database, deployment, and additional feature
 #### Architecture
 - **Frontend**: Next.js with Tailwind CSS for a responsive, medical-themed UI.
 - **Backend**: Haystack pipelines with agentic RAG, Perplexity API integration, and FastAPI for user/session management.
-- **Database**: PostgreSQL with pgvector hosted at pgadmin.alviongs.com for vector embeddings, user data, history, and admin metrics.
+- **Database**: PostgreSQL with pgvector hosted at server.alviongs.com via aaPanel for vector embeddings, user data, history, and admin metrics.
 - **APIs**: OpenRouter for cost-effective LLM generation, Perplexity for deep research, and a dedicated reasoning model for improved answer quality.
 
 #### Step-by-Step Development Plan
@@ -56,8 +56,9 @@ This plan covers frontend, backend, database, deployment, and additional feature
   - Use VS Code (free) for coding.
   - Use Git and GitHub for version control (free tier).
 - **PostgreSQL with pgvector**:
-  - Connect to the existing PostgreSQL instance at pgadmin.alviongs.com
+  - Connect to the existing PostgreSQL instance at server.alviongs.com via aaPanel
   - Ensure pgvector extension is enabled: `CREATE EXTENSION IF NOT EXISTS vector;`.
+  - See detailed setup instructions in `docs/postgresql-aapanel-setup.md`
 
 ##### Step 2: Design the Database
 - Create tables in PostgreSQL for users, history, vectors, and admin metrics:

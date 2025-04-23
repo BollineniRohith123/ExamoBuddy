@@ -1,9 +1,9 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import Navigation from '@/components/Navigation';
-import ProtectedRoute from '@/components/ProtectedRoute';
-import { historyApi, qaApi } from '@/lib/api';
+import Navigation from '../../components/Navigation';
+import ProtectedRoute from '../../components/ProtectedRoute';
+import { historyApi, qaApi } from '../../lib/api';
 import ReactMarkdown from 'react-markdown';
 
 interface HistoryItem {
@@ -26,105 +26,119 @@ export default function History() {
   const [page, setPage] = useState(0);
   const [selectedItem, setSelectedItem] = useState<HistoryItem | null>(null);
   const limit = 10;
-  
+
   const fetchHistory = async () => {
     setLoading(true);
     setError(null);
-    
+
     try {
-      const response = await historyApi.getHistory(page * limit, limit);
-      const data = response.data as HistoryResponse;
-      
-      setHistory(data.items);
-      setTotal(data.total);
+      // For demo purposes, we'll create mock history data
+      setTimeout(() => {
+        const mockHistory: HistoryItem[] = [
+          {
+            id: 1,
+            question: 'What is hypertension?',
+            answer: 'Hypertension, or high blood pressure, is a condition where the force of blood against the artery walls is consistently too high. It is often called the "silent killer" because it typically has no symptoms but can lead to serious health problems like heart disease, stroke, and kidney damage.',
+            timestamp: new Date(Date.now() - 3600000).toISOString() // 1 hour ago
+          },
+          {
+            id: 2,
+            question: 'What are the symptoms of diabetes?',
+            answer: 'The symptoms of diabetes can vary depending on how elevated your blood sugar is. Common symptoms include increased thirst, frequent urination, extreme hunger, unexplained weight loss, fatigue, irritability, blurred vision, slow-healing sores, and frequent infections.',
+            timestamp: new Date(Date.now() - 86400000).toISOString() // 1 day ago
+          },
+          {
+            id: 3,
+            question: 'How does the heart work?',
+            answer: 'The heart is a muscular organ that works as a pump, pushing blood through the body. It has four chambers and beats about 100,000 times per day, pumping about 2,000 gallons of blood.',
+            timestamp: new Date(Date.now() - 172800000).toISOString() // 2 days ago
+          }
+        ];
+
+        setHistory(mockHistory);
+        setTotal(mockHistory.length);
+        setLoading(false);
+      }, 1000); // Simulate network delay
     } catch (err) {
       console.error('Error fetching history:', err);
-      setError('Failed to fetch history. Please try again.');
-    } finally {
+      setError('Failed to fetch history. This is a demo without a backend.');
       setLoading(false);
     }
   };
-  
+
   useEffect(() => {
     fetchHistory();
   }, [page]);
-  
+
   const handlePageChange = (newPage: number) => {
     setPage(newPage);
   };
-  
+
   const handleViewItem = (item: HistoryItem) => {
     setSelectedItem(item);
   };
-  
+
   const handleCloseItem = () => {
     setSelectedItem(null);
   };
-  
+
   const handleDeleteItem = async (id: number) => {
     try {
-      await historyApi.deleteHistoryItem(id);
-      
-      // Refresh the history
-      fetchHistory();
-      
-      // Close the item view if it's the one being deleted
-      if (selectedItem && selectedItem.id === id) {
-        setSelectedItem(null);
-      }
+      // For demo purposes, we'll simulate deleting an item
+      setTimeout(() => {
+        // Filter out the deleted item
+        setHistory(prevHistory => prevHistory.filter(item => item.id !== id));
+
+        // Close the item view if it's the one being deleted
+        if (selectedItem && selectedItem.id === id) {
+          setSelectedItem(null);
+        }
+      }, 500); // Simulate network delay
     } catch (err) {
       console.error('Error deleting history item:', err);
-      setError('Failed to delete history item. Please try again.');
+      setError('Failed to delete history item. This is a demo without a backend.');
     }
   };
-  
+
   const handleDownloadPdf = async (answer: string, question?: string) => {
     try {
-      const response = await qaApi.generatePdf(answer, question);
-      
-      // Create a blob from the PDF data
-      const blob = new Blob([response.data], { type: 'application/pdf' });
-      
-      // Create a URL for the blob
-      const url = window.URL.createObjectURL(blob);
-      
-      // Create a link element
-      const link = document.createElement('a');
-      link.href = url;
-      link.download = 'examobuddy_answer.pdf';
-      
-      // Append the link to the body
-      document.body.appendChild(link);
-      
-      // Click the link to trigger the download
-      link.click();
-      
-      // Clean up
-      document.body.removeChild(link);
-      window.URL.revokeObjectURL(url);
+      // For demo purposes, we'll show an error message
+      setError('PDF download is not available in the demo version without a backend.');
+
+      // In a real implementation, this would call the backend API to generate a PDF
+      // const response = await qaApi.generatePdf(answer, question);
+      // const blob = new Blob([response.data], { type: 'application/pdf' });
+      // const url = window.URL.createObjectURL(blob);
+      // const link = document.createElement('a');
+      // link.href = url;
+      // link.download = 'examobuddy_answer.pdf';
+      // document.body.appendChild(link);
+      // link.click();
+      // document.body.removeChild(link);
+      // window.URL.revokeObjectURL(url);
     } catch (err) {
       console.error('Error generating PDF:', err);
-      setError('Failed to generate PDF. Please try again.');
+      setError('Failed to generate PDF. This is a demo without a backend.');
     }
   };
-  
+
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     return date.toLocaleString();
   };
-  
+
   const totalPages = Math.ceil(total / limit);
-  
+
   return (
     <ProtectedRoute>
       <div className="min-h-screen bg-gray-50">
         <Navigation />
-        
+
         <main className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
           <div className="px-4 py-6 sm:px-0">
             <div className="bg-white rounded-lg shadow p-6">
               <h1 className="text-2xl font-bold text-gray-900 mb-6">Question History</h1>
-              
+
               {error && (
                 <div className="rounded-md bg-red-50 p-4 mb-6">
                   <div className="flex">
@@ -137,7 +151,7 @@ export default function History() {
                   </div>
                 </div>
               )}
-              
+
               {loading ? (
                 <div className="flex justify-center py-8">
                   <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary-500"></div>
@@ -195,7 +209,7 @@ export default function History() {
                       </tbody>
                     </table>
                   </div>
-                  
+
                   {totalPages > 1 && (
                     <div className="flex justify-center mt-6">
                       <nav className="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
@@ -209,7 +223,7 @@ export default function History() {
                             <path fillRule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clipRule="evenodd" />
                           </svg>
                         </button>
-                        
+
                         {Array.from({ length: totalPages }).map((_, i) => (
                           <button
                             key={i}
@@ -221,7 +235,7 @@ export default function History() {
                             {i + 1}
                           </button>
                         ))}
-                        
+
                         <button
                           onClick={() => handlePageChange(Math.min(totalPages - 1, page + 1))}
                           disabled={page === totalPages - 1}
@@ -237,7 +251,7 @@ export default function History() {
                   )}
                 </div>
               )}
-              
+
               {selectedItem && (
                 <div className="fixed inset-0 bg-gray-500 bg-opacity-75 flex items-center justify-center p-4 z-50">
                   <div className="bg-white rounded-lg shadow-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
@@ -253,25 +267,25 @@ export default function History() {
                           </svg>
                         </button>
                       </div>
-                      
+
                       <div className="mt-4">
                         <h3 className="text-lg font-medium text-gray-900">Question:</h3>
                         <p className="mt-1 text-gray-600">{selectedItem.question}</p>
                       </div>
-                      
+
                       <div className="mt-6">
                         <h3 className="text-lg font-medium text-gray-900">Answer:</h3>
                         <div className="mt-2 prose max-w-none">
                           <ReactMarkdown>{selectedItem.answer}</ReactMarkdown>
                         </div>
                       </div>
-                      
+
                       <div className="mt-6">
                         <p className="text-sm text-gray-500">
                           Asked on {formatDate(selectedItem.timestamp)}
                         </p>
                       </div>
-                      
+
                       <div className="mt-6 flex justify-end space-x-4">
                         <button
                           onClick={() => handleDownloadPdf(selectedItem.answer, selectedItem.question)}
