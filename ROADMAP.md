@@ -1,245 +1,477 @@
-# ExamoBuddy Development Roadmap
+# ExamoBuddy 24-Hour Development Roadmap
 
-This roadmap outlines the detailed plan for developing the ExamoBuddy application, a Q&A platform for MBBS students using Haystack with agentic RAG and Perplexity API integration.
+This roadmap outlines the intensive 24-hour development plan for creating the ExamoBuddy application, a Q&A platform for MBBS students using Haystack with agentic RAG and Perplexity API integration.
 
 ## Project Overview
 
-**Duration**: 8 weeks
-**Team**: 2 developers (1 frontend, 1 backend)
-**Goal**: Create a production-ready Q&A platform for medical students with agentic RAG capabilities
+**Duration**: 24 hours of continuous development
+**Approach**: Vibe coding - rapid prototyping and iterative development
+**Goal**: Create a functional MVP of the Q&A platform with core features implemented
 
-## Phase 1: Setup & Foundation (Week 1)
+## 24-Hour Development Timeline
 
-### 1.1 Environment Setup (2 days)
+### Hour 0-1: Project Setup and Planning (1 hour)
 - [ ] Set up development environments (Python 3.8+, Node.js)
 - [ ] Create GitHub repository structure
-- [ ] Configure linting and code formatting tools
-- [ ] Set up CI/CD pipeline for automated testing
+- [ ] Define MVP features and prioritize tasks
+- [ ] Set up communication channels for pair programming
+- [ ] Prepare development tools and resources
 
-### 1.2 Database Configuration (3 days)
+### Hour 1-3: Database and Backend Foundation (2 hours)
 - [ ] Connect to PostgreSQL at pgadmin.alviongs.com
-- [ ] Create database schema (users, history, vectors, query_logs)
-- [ ] Enable pgvector extension for vector storage
-- [ ] Set up database migration scripts
-- [ ] Implement database connection pooling for performance
+- [ ] Create essential database tables (users, history, vectors)
+- [ ] Enable pgvector extension
+- [ ] Set up FastAPI project structure
+- [ ] Implement basic API endpoints structure
 
-### 1.3 Project Documentation (2 days)
-- [ ] Create technical documentation template
-- [ ] Document API specifications
-- [ ] Create database schema diagrams
-- [ ] Document deployment architecture
-
-## Phase 2: Backend Development (Weeks 2-4)
-
-### 2.1 Authentication System (4 days)
-- [ ] Implement user registration with email verification
-- [ ] Create JWT-based authentication system
-- [ ] Implement password reset functionality
-- [ ] Set up role-based access control (user/admin)
-- [ ] Create API endpoints for auth operations
-
-### 2.2 Haystack RAG Pipeline (7 days)
+### Hour 3-6: Haystack RAG Pipeline Setup (3 hours)
 - [ ] Install and configure Haystack framework
 - [ ] Set up PgvectorDocumentStore with PostgreSQL connection
-- [ ] Implement document processing pipeline
+- [ ] Implement basic document processing pipeline
 - [ ] Configure embedding models for vector generation
-- [ ] Create retrieval components with BM25 and dense retrieval
-- [ ] Implement document ranking and reranking
-- [ ] Test retrieval accuracy with medical documents
+- [ ] Create simple retrieval components
+- [ ] Test basic RAG functionality with sample medical documents
 
-### 2.3 Agentic RAG Implementation (5 days)
-- [ ] Research and select appropriate agent framework in Haystack
-- [ ] Define agent tools and capabilities
-- [ ] Implement reasoning steps for medical question analysis
-- [ ] Create custom tools for medical domain knowledge
-- [ ] Implement agent memory and context management
-- [ ] Test agent performance on medical queries
+### Hour 6-9: Agentic RAG Implementation (3 hours)
+- [ ] Implement Haystack agent framework
+- [ ] Define essential agent tools for medical domain
+- [ ] Create reasoning component for question analysis
+- [ ] Implement context management for follow-up questions
+- [ ] Test agent with sample medical queries
 
-### 2.4 Perplexity API Integration (3 days)
+### Hour 9-11: Perplexity API Integration (2 hours)
 - [ ] Set up Perplexity API client
-- [ ] Create abstraction layer for API calls
-- [ ] Implement caching mechanism to reduce API costs
-- [ ] Create fallback mechanisms for API failures
-- [ ] Develop response formatting and sanitization
+- [ ] Create custom tool for deep research
+- [ ] Implement basic caching for API calls
+- [ ] Test integration with medical questions
+- [ ] Optimize response formatting
 
-### 2.5 PDF Generation (2 days)
-- [ ] Implement PDF generation service
-- [ ] Create templates for answer formatting
-- [ ] Add medical styling to PDF outputs
-- [ ] Implement PDF caching for repeated requests
-- [ ] Create API endpoint for PDF downloads
+### Hour 11-12: PDF Generation (1 hour)
+- [ ] Implement basic PDF generation service
+- [ ] Create simple template for answer formatting
+- [ ] Set up API endpoint for PDF downloads
+- [ ] Test PDF generation with sample answers
 
-### 2.6 API Development (4 days)
-- [ ] Design RESTful API architecture
-- [ ] Implement core Q&A endpoints
-- [ ] Create history management endpoints
-- [ ] Implement admin analytics endpoints
-- [ ] Add rate limiting and API security measures
-- [ ] Document API with Swagger/OpenAPI
+### Hour 12-14: Authentication System (2 hours)
+- [ ] Implement basic JWT-based authentication
+- [ ] Create login/register endpoints
+- [ ] Set up admin role functionality
+- [ ] Test authentication flow
 
-## Phase 3: Frontend Development (Weeks 4-6)
-
-### 3.1 UI Framework Setup (2 days)
+### Hour 14-17: Frontend Foundation (3 hours)
 - [ ] Set up Next.js project with TypeScript
-- [ ] Configure Tailwind CSS with medical theme
-- [ ] Create component library structure
-- [ ] Set up responsive layout templates
-- [ ] Implement dark/light mode support
+- [ ] Configure Tailwind CSS with basic medical theme
+- [ ] Create essential page structure (login, Q&A, history, admin)
+- [ ] Implement responsive layout templates
+- [ ] Set up API client for backend communication
 
-### 3.2 Authentication UI (3 days)
-- [ ] Create login page with form validation
-- [ ] Implement registration flow
-- [ ] Design password reset interface
-- [ ] Add social login options (optional)
-- [ ] Implement session management on client
+### Hour 17-19: Core Q&A Interface (2 hours)
+- [ ] Implement question input interface
+- [ ] Create answer display component
+- [ ] Add loading states and basic animations
+- [ ] Implement PDF download button
+- [ ] Test Q&A functionality end-to-end
 
-### 3.3 Q&A Interface (5 days)
-- [ ] Design and implement question input interface
-- [ ] Create answer display component with markdown support
-- [ ] Implement loading states and animations
-- [ ] Add follow-up question suggestions
-- [ ] Create PDF download button and preview
-- [ ] Implement error handling and retry mechanisms
+### Hour 19-21: History and Admin Features (2 hours)
+- [ ] Create basic history page
+- [ ] Implement simple admin dashboard
+- [ ] Add user management interface
+- [ ] Create basic usage statistics display
+- [ ] Test history and admin functionality
 
-### 3.4 History Management (3 days)
-- [ ] Create history page with filtering options
-- [ ] Implement pagination for history items
-- [ ] Add search functionality for past questions
-- [ ] Create detailed view for individual Q&A pairs
-- [ ] Implement history export functionality
-
-### 3.5 Admin Dashboard (4 days)
-- [ ] Design analytics dashboard layout
-- [ ] Implement user management interface
-- [ ] Create usage statistics visualizations
-- [ ] Add cost tracking and reporting features
-- [ ] Implement system settings configuration
-
-### 3.6 Responsive Design & Optimization (3 days)
-- [ ] Ensure mobile responsiveness
-- [ ] Optimize assets and bundle sizes
-- [ ] Implement lazy loading for components
-- [ ] Add PWA capabilities
-- [ ] Conduct performance audits and optimizations
-
-## Phase 4: Integration & Testing (Week 7)
-
-### 4.1 Frontend-Backend Integration (3 days)
-- [ ] Connect frontend to backend APIs
-- [ ] Implement error handling and retries
-- [ ] Add authentication token management
+### Hour 21-23: Integration and Testing (2 hours)
+- [ ] Connect all frontend components to backend APIs
+- [ ] Implement error handling for critical paths
 - [ ] Test end-to-end workflows
-- [ ] Optimize API request patterns
+- [ ] Fix critical bugs and issues
+- [ ] Optimize performance bottlenecks
 
-### 4.2 Testing (4 days)
-- [ ] Write unit tests for backend components
-- [ ] Create integration tests for API endpoints
-- [ ] Implement frontend component tests
-- [ ] Conduct end-to-end testing
-- [ ] Perform security testing
-- [ ] Test with real medical questions and validate answers
-
-### 4.3 Performance Optimization (3 days)
-- [ ] Profile and optimize database queries
-- [ ] Implement caching strategies
-- [ ] Optimize vector search performance
-- [ ] Tune API response times
-- [ ] Optimize frontend rendering performance
-
-## Phase 5: Deployment & Launch (Week 8)
-
-### 5.1 Infrastructure Setup (2 days)
-- [ ] Configure production environment
-- [ ] Set up monitoring and logging
-- [ ] Configure backup systems
-- [ ] Implement security measures
-- [ ] Set up SSL certificates
-
-### 5.2 Deployment (3 days)
-- [ ] Deploy backend to production server
+### Hour 23-24: Deployment and Documentation (1 hour)
+- [ ] Deploy backend to a simple production server
 - [ ] Deploy frontend to Vercel
 - [ ] Configure environment variables
-- [ ] Set up database connection pooling
-- [ ] Implement CDN for static assets
+- [ ] Create basic documentation
+- [ ] Prepare demo for stakeholders
 
-### 5.3 Final Testing & Launch (2 days)
-- [ ] Conduct final QA testing
-- [ ] Perform load testing
-- [ ] Create user documentation
-- [ ] Prepare launch materials
-- [ ] Go live with initial user group
-
-### 5.4 Post-Launch Support (3 days)
-- [ ] Monitor system performance
-- [ ] Address initial user feedback
-- [ ] Fix any critical issues
-- [ ] Optimize based on real usage patterns
-- [ ] Plan for future enhancements
-
-## Technical Specifications
+## Technical Stack for Rapid Development
 
 ### Backend
 - **Language**: Python 3.8+
-- **Framework**: FastAPI
-- **RAG Framework**: Haystack
+- **Framework**: FastAPI (for quick API development)
+- **RAG Framework**: Haystack (latest version with agentic capabilities)
 - **Database**: PostgreSQL with pgvector at pgadmin.alviongs.com
-- **Authentication**: JWT-based with bcrypt password hashing
+- **Authentication**: Simple JWT-based auth (minimal implementation)
 - **APIs**: Perplexity for deep research, OpenRouter for cost-effective LLM access
-- **PDF Generation**: pdfkit/WeasyPrint
+- **PDF Generation**: Simple pdfkit implementation
 
 ### Frontend
-- **Framework**: Next.js 14+
-- **Styling**: Tailwind CSS with custom medical theme
-- **State Management**: React Context API + SWR for data fetching
-- **Authentication**: JWT with HTTP-only cookies
-- **Charts**: Chart.js for admin analytics
-- **Deployment**: Vercel
+- **Framework**: Next.js 14+ with App Router
+- **Styling**: Tailwind CSS with pre-built medical components
+- **State Management**: React Query for efficient data fetching
+- **Authentication**: JWT with localStorage (for MVP simplicity)
+- **Charts**: Simple Chart.js implementation for admin
+- **Deployment**: Vercel (for instant deployment)
 
 ### Infrastructure
-- **Database Hosting**: PostgreSQL at pgadmin.alviongs.com
-- **Backend Hosting**: DigitalOcean or similar VPS
-- **Frontend Hosting**: Vercel
-- **CI/CD**: GitHub Actions
-- **Monitoring**: Prometheus + Grafana
+- **Database**: Existing PostgreSQL at pgadmin.alviongs.com
+- **Backend Hosting**: Railway.app or Render.com (for quick deployment)
+- **Frontend Hosting**: Vercel (zero-config deployment)
 
-## Budget Considerations
+## MVP Features Prioritization
 
-### Development Costs
-- Developer time: 8 weeks × 2 developers
-- Design assets: $100-200 for premium UI components/templates
+### Must-Have Features
+- Basic user authentication (login/register)
+- Q&A functionality with agentic RAG
+- Perplexity integration for deep research
+- Simple history tracking
+- Basic admin view
+- PDF download capability
 
-### Operational Costs (Monthly)
-- **VPS Hosting**: $5-10/month (DigitalOcean/Linode)
-- **Vercel Hosting**: Free tier
-- **PostgreSQL**: Using existing hosting at pgadmin.alviongs.com
-- **Perplexity API**: ~$0.01-0.02 per query (estimated $50-100/month based on usage)
-- **OpenRouter API**: ~$0.005-0.01 per query (estimated $25-50/month based on usage)
-- **Total Estimated Monthly Cost**: $80-160/month
+### Nice-to-Have Features (If Time Permits)
+- Enhanced UI with medical theming
+- Advanced admin analytics
+- User feedback mechanism
+- Follow-up question suggestions
+- Caching for performance optimization
 
-## Risk Assessment
+## Development Approach
 
-### Technical Risks
-- **Agentic RAG Complexity**: Implementing effective agentic reasoning requires careful design and testing
-- **API Costs**: Unmonitored usage could lead to unexpected expenses
-- **Medical Accuracy**: Ensuring answers are medically accurate and reliable
+### Parallel Development
+- Frontend and backend development will happen simultaneously
+- Use mock data for frontend while backend APIs are being developed
+- Regular integration points every 3-4 hours
 
-### Mitigation Strategies
-- Implement strict testing protocols for medical accuracy
-- Add usage limits and monitoring for API calls
-- Create caching mechanisms to reduce API costs
-- Implement feedback system to improve answer quality over time
+### Code Reuse and Shortcuts
+- Use pre-built components and templates where possible
+- Leverage existing libraries and code snippets
+- Focus on functionality over perfect code structure
+- Use minimal error handling for MVP (focus on happy paths)
 
-## Future Enhancements (Post-Launch)
+### Testing Strategy
+- Focus on manual testing of critical paths
+- Implement basic automated tests only for core functionality
+- Use real medical questions to validate RAG performance
 
-### Phase 6: Advanced Features (Future)
-- **Multilingual Support**: Add support for multiple languages
-- **Voice Interface**: Implement voice input/output
-- **Mobile App**: Develop native mobile applications
-- **Offline Mode**: Enable limited functionality without internet
-- **Collaborative Learning**: Add features for group study and sharing
-- **Integration with LMS**: Connect with learning management systems
-- **Custom RAG Models**: Train domain-specific models for improved accuracy
+## Post-MVP Development
+
+After the 24-hour development sprint, these areas will need further refinement:
+
+- Enhanced error handling and edge cases
+- Improved security measures
+- Performance optimization for production
+- More comprehensive testing
+- UI/UX refinements
+- Additional features based on initial feedback
+
+## Implementation Details and Code Snippets
+
+### Database Schema (Quick Implementation)
+
+```sql
+-- Run this on pgadmin.alviongs.com to set up the database
+CREATE EXTENSION IF NOT EXISTS pgvector;
+
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+    username VARCHAR(50) UNIQUE NOT NULL,
+    password_hash VARCHAR(255) NOT NULL,
+    is_admin BOOLEAN DEFAULT FALSE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE history (
+    id SERIAL PRIMARY KEY,
+    user_id INT REFERENCES users(id),
+    question TEXT NOT NULL,
+    answer TEXT NOT NULL,
+    timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE vectors (
+    id SERIAL PRIMARY KEY,
+    embedding VECTOR(1536),
+    document_text TEXT NOT NULL,
+    metadata JSONB
+);
+
+-- Insert admin user for testing
+INSERT INTO users (username, password_hash, is_admin)
+VALUES ('admin', '$2b$12$BnlkuACZiHUs8h0TLWejg.XyPEKLt.TYYORZbf/gfFd/S8sO77lt.', true);
+```
+
+### FastAPI Backend Structure
+
+```
+backend/
+├── app/
+│   ├── __init__.py
+│   ├── main.py           # FastAPI app initialization
+│   ├── config.py         # Configuration and environment variables
+│   ├── database.py       # Database connection
+│   ├── auth/
+│   │   ├── __init__.py
+│   │   ├── router.py     # Auth endpoints
+│   │   └── utils.py      # JWT functions
+│   ├── rag/
+│   │   ├── __init__.py
+│   │   ├── document_store.py  # PgVector setup
+│   │   ├── pipeline.py        # Haystack pipeline
+│   │   └── agent.py           # Agentic RAG implementation
+│   ├── api/
+│   │   ├── __init__.py
+│   │   ├── qa.py         # Q&A endpoints
+│   │   ├── history.py    # History endpoints
+│   │   ├── admin.py      # Admin endpoints
+│   │   └── pdf.py        # PDF generation
+│   └── models/
+│       ├── __init__.py
+│       └── schemas.py     # Pydantic models
+└── requirements.txt
+```
+
+### Next.js Frontend Structure
+
+```
+frontend/
+├── app/
+│   ├── layout.tsx        # Root layout
+│   ├── page.tsx          # Home page with Q&A interface
+│   ├── login/
+│   │   └── page.tsx      # Login page
+│   ├── register/
+│   │   └── page.tsx      # Registration page
+│   ├── history/
+│   │   └── page.tsx      # History page
+│   ├── admin/
+│   │   └── page.tsx      # Admin dashboard
+│   └── api/
+│       └── auth/
+│           └── [...nextauth]/
+│               └── route.ts  # Auth API routes
+├── components/
+│   ├── ui/               # Reusable UI components
+│   ├── QuestionForm.tsx  # Question input form
+│   ├── AnswerDisplay.tsx # Answer display with markdown
+│   └── PDFButton.tsx     # PDF download button
+├── lib/
+│   ├── api.ts            # API client
+│   └── auth.ts           # Auth utilities
+└── package.json
+```
+
+### Key Implementation Code Snippets
+
+#### Haystack Agentic RAG Setup
+
+```python
+# backend/app/rag/agent.py
+from haystack import Pipeline
+from haystack.components.retrievers import InMemoryBM25Retriever
+from haystack.components.generators import OpenAIGenerator
+from haystack.agents import Agent, Tool
+import requests
+
+# Perplexity API Tool
+def perplexity_research(query: str) -> str:
+    """Perform deep research using Perplexity API"""
+    response = requests.post(
+        "https://api.perplexity.ai/chat/completions",
+        headers={"Authorization": f"Bearer {PERPLEXITY_API_KEY}"},
+        json={
+            "model": "sonar-pro",
+            "messages": [{"role": "user", "content": query}]
+        }
+    )
+    return response.json()["choices"][0]["message"]["content"]
+
+# Reasoning Tool
+def medical_reasoning(question: str, context: str) -> str:
+    """Apply medical reasoning to analyze the question and context"""
+    response = requests.post(
+        "https://api.openrouter.ai/api/v1/chat/completions",
+        headers={"Authorization": f"Bearer {OPENROUTER_API_KEY}"},
+        json={
+            "model": "meta-llama/llama-3-8b",
+            "messages": [
+                {"role": "system", "content": "You are a medical reasoning assistant."},
+                {"role": "user", "content": f"Question: {question}\n\nContext: {context}"}
+            ]
+        }
+    )
+    return response.json()["choices"][0]["message"]["content"]
+
+# Create Haystack Agent
+def create_agent(document_store):
+    # Create retrieval pipeline
+    retrieval_pipeline = Pipeline()
+    retrieval_pipeline.add_component("retriever", InMemoryBM25Retriever(document_store=document_store))
+
+    # Create tools
+    retrieval_tool = Tool(
+        name="retrieve_documents",
+        pipeline_or_node=retrieval_pipeline,
+        description="Retrieve relevant medical documents"
+    )
+
+    perplexity_tool = Tool(
+        name="deep_research",
+        pipeline_or_node=perplexity_research,
+        description="Perform deep research on medical topics"
+    )
+
+    reasoning_tool = Tool(
+        name="medical_reasoning",
+        pipeline_or_node=medical_reasoning,
+        description="Apply medical reasoning to analyze questions"
+    )
+
+    # Create agent with tools
+    agent = Agent(
+        prompt_template="""You are a medical assistant for MBBS students.\n\n
+        Question: {query}\n\nThink step by step to answer the question.""",
+        tools=[retrieval_tool, perplexity_tool, reasoning_tool],
+        llm=OpenAIGenerator(api_key=OPENROUTER_API_KEY, model="meta-llama/llama-3-8b")
+    )
+
+    return agent
+```
+
+#### FastAPI Q&A Endpoint
+
+```python
+# backend/app/api/qa.py
+from fastapi import APIRouter, Depends, HTTPException
+from ..auth.utils import get_current_user
+from ..rag.agent import create_agent
+from ..database import get_db
+from ..models.schemas import QuestionRequest, AnswerResponse
+
+router = APIRouter()
+
+@router.post("/ask", response_model=AnswerResponse)
+async def ask_question(request: QuestionRequest, current_user = Depends(get_current_user), db = Depends(get_db)):
+    try:
+        # Get agent
+        agent = create_agent(document_store)
+
+        # Get user history for context
+        history = db.execute(
+            "SELECT question, answer FROM history WHERE user_id = %s ORDER BY timestamp DESC LIMIT 3",
+            (current_user["id"],)
+        ).fetchall()
+
+        # Format history as context
+        context = "\n".join([f"Q: {h['question']}\nA: {h['answer']}" for h in history])
+
+        # Run agent with history context
+        result = agent.run(request.question, context=context)
+
+        # Save to history
+        db.execute(
+            "INSERT INTO history (user_id, question, answer) VALUES (%s, %s, %s)",
+            (current_user["id"], request.question, result)
+        )
+        db.commit()
+
+        return {"answer": result}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+```
+
+#### React Q&A Component
+
+```tsx
+// frontend/components/QuestionForm.tsx
+'use client';
+
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+
+export default function QuestionForm() {
+  const [question, setQuestion] = useState('');
+  const [answer, setAnswer] = useState('');
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+
+    try {
+      const response = await fetch('/api/ask', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ question }),
+      });
+
+      if (!response.ok) throw new Error('Failed to get answer');
+
+      const data = await response.json();
+      setAnswer(data.answer);
+    } catch (error) {
+      console.error('Error:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div className="w-full max-w-2xl mx-auto p-4">
+      <form onSubmit={handleSubmit} className="mb-6">
+        <div className="mb-4">
+          <label htmlFor="question" className="block text-sm font-medium text-gray-700 mb-1">
+            Ask a medical question
+          </label>
+          <textarea
+            id="question"
+            value={question}
+            onChange={(e) => setQuestion(e.target.value)}
+            className="w-full p-3 border border-gray-300 rounded-md focus:ring-green-500 focus:border-green-500"
+            rows={3}
+            placeholder="Enter your medical question here..."
+            required
+          />
+        </div>
+        <button
+          type="submit"
+          disabled={loading}
+          className="w-full bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 disabled:opacity-50"
+        >
+          {loading ? 'Processing...' : 'Submit Question'}
+        </button>
+      </form>
+
+      {loading && (
+        <div className="text-center py-4">
+          <div className="animate-pulse text-green-600">Researching your question...</div>
+        </div>
+      )}
+
+      {answer && (
+        <div className="bg-white p-6 rounded-lg shadow-md">
+          <h2 className="text-xl font-semibold text-gray-800 mb-4">Answer</h2>
+          <div className="prose max-w-none">
+            {answer}
+          </div>
+          <div className="mt-4 flex justify-end">
+            <button
+              onClick={() => window.open('/api/pdf?answer=' + encodeURIComponent(answer), '_blank')}
+              className="text-green-600 hover:text-green-800"
+            >
+              Download as PDF
+            </button>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+```
 
 ## Conclusion
 
-This roadmap provides a comprehensive plan for developing the ExamoBuddy application over an 8-week period. The focus on agentic RAG with Perplexity integration will ensure high-quality, relevant answers for medical students. By leveraging the existing PostgreSQL hosting at pgadmin.alviongs.com and implementing efficient caching strategies, we can create a cost-effective solution that delivers exceptional value to users.
+This 24-hour development roadmap provides a detailed plan for creating a functional MVP of the ExamoBuddy application through intensive pair programming and rapid development techniques. By focusing on core functionality and leveraging existing tools and services, we can deliver a working prototype that demonstrates the power of agentic RAG with Perplexity integration for medical Q&A.
+
+The implementation details and code snippets provide a clear starting point for development, allowing us to hit the ground running. The existing PostgreSQL hosting at pgadmin.alviongs.com will be utilized to minimize setup time and focus on feature development.
+
+Let's start coding and build this application in the next 24 hours!
