@@ -13,12 +13,12 @@ api.interceptors.request.use(
   (config) => {
     // Get the token from localStorage
     const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
-    
+
     // If token exists, add it to the request headers
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
-    
+
     return config;
   },
   (error) => {
@@ -40,50 +40,58 @@ api.interceptors.response.use(
         window.location.href = '/login';
       }
     }
-    
+
     return Promise.reject(error);
   }
 );
 
 // Auth API
 export const authApi = {
-  login: (username: string, password: string) => 
-    api.post('/auth/token', { username, password }),
-  
-  register: (username: string, password: string) => 
+  login: (username: string, password: string) => {
+    const formData = new FormData();
+    formData.append('username', username);
+    formData.append('password', password);
+    return api.post('/auth/token', formData, {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      }
+    });
+  },
+
+  register: (username: string, password: string) =>
     api.post('/auth/register', { username, password }),
-  
-  getMe: () => 
+
+  getMe: () =>
     api.get('/auth/me'),
 };
 
 // Q&A API
 export const qaApi = {
-  askQuestion: (question: string) => 
+  askQuestion: (question: string) =>
     api.post('/qa/ask', { question }),
-  
-  generatePdf: (answer: string, question?: string) => 
+
+  generatePdf: (answer: string, question?: string) =>
     api.post('/pdf/generate', { answer, question }, { responseType: 'blob' }),
 };
 
 // History API
 export const historyApi = {
-  getHistory: (skip = 0, limit = 10) => 
+  getHistory: (skip = 0, limit = 10) =>
     api.get(`/history?skip=${skip}&limit=${limit}`),
-  
-  getHistoryItem: (id: number) => 
+
+  getHistoryItem: (id: number) =>
     api.get(`/history/${id}`),
-  
-  deleteHistoryItem: (id: number) => 
+
+  deleteHistoryItem: (id: number) =>
     api.delete(`/history/${id}`),
 };
 
 // Admin API
 export const adminApi = {
-  getStats: () => 
+  getStats: () =>
     api.get('/admin/stats'),
-  
-  getUsers: () => 
+
+  getUsers: () =>
     api.get('/admin/users'),
 };
 
