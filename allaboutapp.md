@@ -38,8 +38,8 @@ This plan covers frontend, backend, database, deployment, and additional feature
 #### Architecture
 - **Frontend**: Next.js with Tailwind CSS for a responsive, medical-themed UI.
 - **Backend**: Haystack pipelines with agentic RAG, Perplexity API integration, and FastAPI for user/session management.
-- **Database**: PostgreSQL with pgvector for vector embeddings, user data, history, and admin metrics.
-- **APIs**: OpenRouter for cost-effective LLM generation, Perplexity for deep research.
+- **Database**: PostgreSQL with pgvector hosted at pgadmin.alviongs.com for vector embeddings, user data, history, and admin metrics.
+- **APIs**: OpenRouter for cost-effective LLM generation, Perplexity for deep research, and a dedicated reasoning model for improved answer quality.
 
 #### Step-by-Step Development Plan
 
@@ -56,11 +56,8 @@ This plan covers frontend, backend, database, deployment, and additional feature
   - Use VS Code (free) for coding.
   - Use Git and GitHub for version control (free tier).
 - **PostgreSQL with pgvector**:
-  - Install PostgreSQL locally or use a Docker container:
-    ```bash
-    docker run -d -p 5432:5432 -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=postgres -e POSTGRES_DB=postgres ankane/pgvector
-    ```
-  - Enable pgvector: `CREATE EXTENSION IF NOT EXISTS vector;`.
+  - Connect to the existing PostgreSQL instance at pgadmin.alviongs.com
+  - Ensure pgvector extension is enabled: `CREATE EXTENSION IF NOT EXISTS vector;`.
 
 ##### Step 2: Design the Database
 - Create tables in PostgreSQL for users, history, vectors, and admin metrics:
@@ -138,8 +135,9 @@ CREATE TABLE query_logs (
     pipeline.connect("retriever", "generator")
     ```
 - **Agentic RAG**:
-  - Create a Haystack agent that can call tools, including the Perplexity API, for deeper research.
-  - Define a custom tool to query Perplexity:
+  - Create a Haystack agent that can call tools, including the Perplexity API, for deeper research and ensure highly relevant answers.
+  - Implement a dedicated reasoning component to analyze medical questions and determine the best approach to answering them.
+  - Define a custom tool to query Perplexity for comprehensive research:
     ```python
     import requests
     def perplexity_tool(query: str) -> str:
@@ -154,6 +152,8 @@ CREATE TABLE query_logs (
         return response.json()["choices"][0]["message"]["content"]
     ```
   - Integrate the tool into the agent for iterative query refinement or external research.
+  - Implement answer validation to ensure medical accuracy and relevance.
+  - Create a feedback loop mechanism to continuously improve answer quality based on user interactions.
 
 ##### Step 5: Integrate Perplexity API
 - Since Perplexity’s API is OpenAI-compatible, use Haystack’s `OpenAIGenerator` or a custom generator:
